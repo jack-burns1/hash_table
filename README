@@ -1,0 +1,99 @@
+/******************************C***************************
+* Proj 2 pt 1: gerp README 
+* Comp 15 Fall 2019
+* Dec 8, 2019
+* README
+* Author: Jack Burns
+*
+*********************************************************/
+
+Compile/run: Compile using "make gerp"
+Run executable with ./gerp DirectoryToIndex OutputFile
+
+Acknowledgements: TAs Juli, Nolan, and Corlene
+
+Program Purpose: This program indexes every word of every file accessable from
+given directory, allowing the user to search for all the insances of that 
+word.
+
+user can search case sensitive or insensitive using @i. The line that the word
+appears is printed to an output file, that can also be switched mid program
+
+Files:
+
+HashTable.h: Interface for Hashtable functions
+
+HashTable.cpp: Consists of a vector of buckets that are linked lists of type
+"word". Functions to check if a given word is in the vector and uses other
+class functions to make a string into type "word". Creates a bucket with
+that word and adds it to the vector. Can also preform searches on the table
+and prints the paths and line numbers of either all or just case 
+sensitive version. Also chek=cks the load factor of the table, and rehashes 
+every word in the table if the number of words / number of buckets is higher
+than .75.
+
+Word.h: Interface for Word functions
+
+Word.cpp: Consists of a lowercase representation of the word and a vector of 
+all of its variations. Can initialize new Words, and uses various functions
+in the variation class to add instances and variations (vector is of type 
+Variation). Also contains many functions to return certain variables, like 
+the size of the array.
+
+Variation.h: Interface for the Variation class
+
+Variation.cpp: Has an Instance struct that contains the filepath to an 
+instance of that word, and the filename and line number it occurs on.
+Class contains a vector of instances. Functions can creates new instances, and
+return various pieces of data, such as the filepath to a given instance.
+
+main.cpp: Driver function for all three classes. Creates a search tree of all
+the accessable files, using FSTree functions. Also opens every file, and reads
+every word into the HashTable functions to create the table. Lastly, it enters
+an interactive mode, directing the search based on the user's intput, and 
+calling functions in HashTable to print out the paths.
+
+FSTree.h: File given to me that creates a search tree of the files accessable
+by a directory.
+
+DirNode.h: File given to me that helps in tree traversal
+
+stringProcessing.h: Interface for sp function.
+
+stringProcessing.cpp: Function that removes all non-alphanumeric characters 
+from the beginning and end of the word.
+
+Data Structures
+---------------
+
+The hashtable is a vector, with each bucket having a pointer to the next 
+bucket, making it a linked list. I also created many classes and structs
+to hold all of the information in the vector. With a vector, it was easy 
+to access indexes. Using multiple classes was helpful, because it made 
+programming less confusing, as every bucket hold a large amount of data.
+Being able to call functions from another class to return a variable was
+helpful.
+
+Testing: Unit testing was done throughout this project. It was important
+to check what the program would do when it encountered numbers or a set
+of characters that was not a word (ex. a line -----------). It was also
+important to run tests with chaining. To help, I implemented a temporary 
+function to print out all of the buckets in the hashtable with their
+lowercase words. This helped greatly with debugging, as I could see the
+state of the hashtable whenever I wanted. One problem I encountered was
+in the creation of my instances. Instead of using 'new' to create a 
+pointer, I created a local variable and returned the address. The program
+deleted this information once the function ended, and my table was filled
+with empty addresses. Due to this not presenting itself until later, I 
+had to look at a complicated version of this program to try to figure out
+the problem. This took me around two days to fix, and greatly delayed me 
+on the project.
+
+
+
+
+
+
+
+
+
